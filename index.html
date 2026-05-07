@@ -58,6 +58,17 @@
       animation: pop-image 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
     }
 
+    /* 룰렛 틱(바늘 튕김) 애니메이션 추가 */
+    @keyframes needle-tick {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      30% { transform: translateX(-50%) rotate(-15deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
+    .animate-tick {
+      animation: needle-tick 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
+      transform-origin: top center;
+    }
+
     /* 커스텀 스크롤바 */
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
@@ -94,11 +105,11 @@
 </head>
 <body class="min-h-screen text-slate-800 font-sans relative overflow-x-hidden">
 
-  <!-- Tailwind JIT 강제 클래스 로드용 (버튼 및 모달 안보임 현상 해결) -->
+  <!-- Tailwind JIT 강제 클래스 로드용 -->
   <div class="hidden
-    bg-emerald-500 hover:bg-emerald-400 text-emerald-400 border-emerald-500/80 bg-emerald-500/20 border-emerald-500/50 border-t-emerald-500 focus:border-emerald-400
-    bg-purple-500 hover:bg-purple-400 text-purple-400 border-purple-500/80 bg-purple-500/20 border-purple-500/50 border-t-purple-500 focus:border-purple-400
-    bg-rose-500 hover:bg-rose-400 text-rose-400 border-rose-500/80 bg-rose-500/20 border-rose-500/50 border-t-rose-500 focus:border-rose-400
+    bg-emerald-500 hover:bg-emerald-400 text-emerald-400 border-emerald-500/80 bg-emerald-500/20 border-emerald-500/50 border-t-emerald-500 focus:border-emerald-400 text-emerald-500
+    bg-purple-500 hover:bg-purple-400 text-purple-400 border-purple-500/80 bg-purple-500/20 border-purple-500/50 border-t-purple-500 focus:border-purple-400 text-purple-500
+    bg-rose-500 hover:bg-rose-400 text-rose-400 border-rose-500/80 bg-rose-500/20 border-rose-500/50 border-t-rose-500 focus:border-rose-400 text-rose-500
   "></div>
 
   <!-- 배경 레이어 -->
@@ -127,7 +138,7 @@
         <i data-lucide="sparkles" class="absolute left-0 -top-4 w-6 h-6 text-teal-400 animate-pulse"></i>
         <h2 class="text-xl sm:text-2xl font-bold text-white tracking-wide leading-relaxed drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)] break-keep">
           이벤트 룰렛 시스템에 접속했습니다.<br/>
-          <span class="block mt-2 text-teal-300">진행할 챕터 구역을 선택해주세요.</span>
+          <span class="block mt-2 text-teal-300">진행할 챕터를 선택해주세요.</span>
         </h2>
         <i data-lucide="sparkles" class="absolute right-0 -bottom-4 w-6 h-6 text-blue-400 animate-pulse" style="animation-delay: 1s;"></i>
       </div>
@@ -200,8 +211,8 @@
           </div>
         </div>
 
-        <!-- Chapter 4 (잠김) - 명도 대비 향상 -->
-        <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 'rose')">
+        <!-- Chapter 4 (잠김) -->
+        <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 3)">
           <div class="flex-grow flex flex-col items-center justify-center relative bg-slate-100 p-8 text-center min-h-[380px]">
             <div class="absolute inset-0 opacity-[0.04]" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 10px, transparent 10px, transparent 20px);"></div>
             <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl shadow-sm border border-slate-200 mb-6 relative z-10">
@@ -215,8 +226,8 @@
           </div>
         </div>
 
-        <!-- Chapter 5 (잠김) - 명도 대비 향상 -->
-        <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 'rose')">
+        <!-- Chapter 5 (잠김) -->
+        <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 3)">
           <div class="flex-grow flex flex-col items-center justify-center relative bg-slate-100 p-8 text-center min-h-[380px]">
             <div class="absolute inset-0 opacity-[0.04]" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 10px, transparent 10px, transparent 20px);"></div>
             <div class="bg-white/50 backdrop-blur-sm p-5 rounded-2xl shadow-sm border border-slate-200 mb-6 relative z-10">
@@ -233,7 +244,7 @@
     </div>
 
     <!-- ==================== SETTINGS VIEW ==================== -->
-    <div id="settings-view" class="hidden w-full max-w-4xl flex-col fade-enter mx-auto">
+    <div id="settings-view" class="hidden w-full max-w-5xl flex-col fade-enter mx-auto">
       <!-- 헤더 -->
       <div class="flex items-center justify-between mb-6 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 shadow-lg">
         <button onclick="goToHome()" class="flex items-center text-white/70 hover:text-white transition-colors">
@@ -242,28 +253,38 @@
         </button>
         <div class="text-center">
           <span id="s-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">Chapter 01</span>
-          <h2 id="s-title" class="text-2xl font-black text-white tracking-wide">첫 방문 환영 이벤트</h2>
+          <h2 id="s-title" class="text-2xl font-black text-white tracking-wide">신비한초대 설정</h2>
         </div>
         <div class="w-20"></div> <!-- 여백 맞춤용 -->
       </div>
 
       <!-- 메인 설정 패널 -->
-      <div class="bg-[#0B1528]/90 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl flex flex-col min-h-[500px]">
+      <div class="bg-[#0B1528]/90 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl flex flex-col">
         <div class="text-center mb-8">
           <h3 class="text-2xl font-bold text-white flex items-center justify-center">
             <i data-lucide="settings-2" class="w-6 h-6 mr-2 text-teal-400" id="s-icon"></i>
             룰렛 상품 및 확률 설정
           </h3>
-          <p class="text-white/50 mt-2 text-sm">상품별 당첨 확률(%)을 입력하세요. <br class="sm:hidden"/> 총합은 반드시 <strong class="text-teal-400">100%</strong>가 되어야 합니다.</p>
+          <p class="text-white/50 mt-2 text-sm">상품별 당첨 확률(%)과 수량(재고)을 입력하세요. <strong class="text-teal-400">고객에게는 수량과 품절 상태가 보이지 않습니다.</strong></p>
         </div>
 
         <!-- 아이템 추가 폼 -->
-        <div class="flex flex-col sm:flex-row gap-3 mb-8 bg-white/5 p-4 rounded-2xl border border-white/10">
-          <input type="text" id="settings-new-item" onkeypress="handleInputKey(event)" class="flex-1 bg-[#040813]/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:bg-white/10 transition-colors" placeholder="상품명 입력 (예: 스마트 펜)">
-          <div class="flex gap-3 relative">
-            <input type="number" id="settings-new-weight" onkeypress="handleInputKey(event)" class="w-24 bg-[#040813]/50 border border-white/20 rounded-xl px-2 py-3 text-white placeholder-white/40 text-center focus:outline-none focus:bg-white/10 transition-colors" placeholder="확률(%)" value="10" min="1" max="100" title="당첨 확률(%)">
-            <span class="absolute right-28 top-1/2 transform -translate-y-1/2 text-white/30 pointer-events-none select-none">%</span>
-            <button onclick="addItem()" id="s-add-btn" class="text-white px-6 py-3 rounded-xl font-bold transition-colors shadow-lg flex items-center shrink-0">
+        <div class="flex flex-col sm:flex-row gap-3 mb-8 bg-white/5 p-4 rounded-2xl border border-white/10 items-stretch">
+          <!-- 상품명 -->
+          <input type="text" id="settings-new-item" onkeypress="handleInputKey(event)" class="flex-1 bg-[#040813]/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none transition-colors min-w-0" placeholder="상품명 (예: 스마트 펜)">
+          
+          <div class="flex gap-3 w-full sm:w-auto mt-3 sm:mt-0 items-center justify-between sm:justify-start">
+            <!-- 수량 -->
+            <div class="relative flex-shrink-0">
+              <input type="number" id="settings-new-quantity" onkeypress="handleInputKey(event)" class="w-24 bg-[#040813]/50 border border-white/20 rounded-xl px-3 py-3 text-white placeholder-white/40 text-center focus:outline-none transition-colors" placeholder="수량(무제한은 빈칸)" min="1" title="준비된 수량 (공란 시 무제한)">
+            </div>
+            <!-- 확률 -->
+            <div class="relative flex-shrink-0">
+              <input type="number" id="settings-new-weight" onkeypress="handleInputKey(event)" class="w-24 bg-[#040813]/50 border border-white/20 rounded-xl pl-3 pr-7 py-3 text-white placeholder-white/40 text-right focus:outline-none transition-colors" placeholder="확률" value="10" min="1" max="100" title="당첨 확률(%)">
+              <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/40 pointer-events-none select-none font-bold">%</span>
+            </div>
+            <!-- 추가 버튼 -->
+            <button onclick="addItem()" id="s-add-btn" class="text-[#040814] px-6 py-3 rounded-xl font-black transition-colors shadow-lg flex items-center justify-center shrink-0">
               <i data-lucide="plus" class="w-5 h-5 mr-1"></i> 추가
             </button>
           </div>
@@ -277,13 +298,15 @@
           </div>
         </div>
 
-        <!-- 아이템 리스트 -->
-        <ul id="settings-item-list" class="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar max-h-[300px] mb-8">
-          <!-- JS 렌더링 -->
-        </ul>
+        <!-- 아이템 리스트 (플렉스 랩 뷰) -->
+        <div class="flex-1 w-full bg-black/20 rounded-xl p-4 mb-8">
+           <ul id="settings-item-list" class="flex flex-wrap gap-3">
+             <!-- JS 렌더링 -->
+           </ul>
+        </div>
 
         <!-- 완료 버튼 -->
-        <button onclick="goToRoulette()" id="s-complete-btn" class="w-full mt-auto py-4 text-[#040814] text-xl font-black rounded-xl transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 flex items-center justify-center">
+        <button onclick="goToRoulette()" id="s-complete-btn" class="w-full py-4 text-[#040814] text-xl font-black rounded-xl transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 flex items-center justify-center">
           <i data-lucide="play-circle" class="w-6 h-6 mr-2"></i>
           룰렛 생성 완료 및 시작하기
         </button>
@@ -300,7 +323,7 @@
         </button>
         <div class="text-center">
           <span id="r-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">Chapter 01</span>
-          <h2 id="r-title" class="text-2xl font-black text-white tracking-wide">첫 방문 환영 이벤트</h2>
+          <h2 id="r-title" class="text-2xl font-black text-white tracking-wide">신비한초대</h2>
         </div>
         <button onclick="goToSettings()" class="flex items-center text-white/70 hover:text-white transition-colors border border-white/20 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10">
           <i data-lucide="settings" class="w-4 h-4 mr-1.5"></i>
@@ -308,19 +331,19 @@
         </button>
       </div>
 
-      <div class="flex flex-col lg:flex-row gap-12 items-center justify-center w-full">
+      <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center w-full">
         
         <!-- 룰렛 영역 -->
         <div class="relative w-full max-w-[500px] lg:max-w-[650px] aspect-square flex-shrink-0 drop-shadow-2xl">
-          <!-- 포인터 (바늘) -->
-          <div class="absolute top-[-16px] left-1/2 -translate-x-1/2 z-20 drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]">
+          <!-- 포인터 (바늘) - 틱(Tick) 애니메이션이 적용될 래퍼 -->
+          <div id="needle-wrapper" class="absolute top-[-16px] left-1/2 -translate-x-1/2 z-20 drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]">
             <div class="w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-t-[48px] border-t-white relative z-10"></div>
             <div id="pointer-inner" class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[36px] z-20"></div>
           </div>
           
           <!-- 룰렛 테두리 및 캔버스 -->
           <div class="absolute inset-0 rounded-full border-[14px] border-white/20 shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-sm overflow-hidden bg-slate-900">
-            <canvas id="roulette-canvas" width="800" height="800" class="w-full h-full transform transition-transform duration-[4000ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]"></canvas>
+            <canvas id="roulette-canvas" width="800" height="800" class="w-full h-full transform"></canvas>
           </div>
           
           <!-- 중앙 스핀 버튼 -->
@@ -330,8 +353,8 @@
           </button>
         </div>
 
-        <!-- 상품 목록 영역 (읽기 전용 디스플레이) -->
-        <div class="w-full lg:w-[380px] bg-[#0B1528]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col h-[550px] flex-shrink-0">
+        <!-- 상품 목록 영역 -->
+        <div class="w-full flex-1 bg-[#0B1528]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col self-stretch">
           <div class="flex items-center justify-center mb-6 border-b border-white/10 pb-5">
             <h3 class="text-white text-xl font-bold flex items-center tracking-wide">
               <i data-lucide="gift" class="w-6 h-6 mr-2" id="r-icon"></i>
@@ -339,13 +362,15 @@
             </h3>
           </div>
           
-          <!-- 읽기 전용 아이템 리스트 -->
-          <ul id="roulette-item-list" class="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
-            <!-- JS 렌더링 -->
-          </ul>
+          <!-- 읽기 전용 아이템 리스트 (품절 표시 완벽 숨김) -->
+          <div class="flex-1 w-full bg-black/20 rounded-xl p-5 mb-4">
+            <ul id="roulette-item-list" class="flex flex-wrap gap-4 content-start">
+              <!-- JS 렌더링 -->
+            </ul>
+          </div>
           
-          <div class="mt-4 pt-4 border-t border-white/10 text-center text-white/40 text-xs flex items-center justify-center">
-            <i data-lucide="info" class="w-4 h-4 mr-1"></i> 당첨 결과는 랜덤 확률에 의해 결정됩니다.
+          <div class="pt-4 border-t border-white/10 text-center text-white/40 text-xs flex flex-col items-center justify-center space-y-1">
+            <div class="flex items-center"><i data-lucide="info" class="w-4 h-4 mr-1"></i> 당첨 결과는 랜덤 확률에 의해 결정됩니다.</div>
           </div>
         </div>
 
@@ -372,11 +397,32 @@
     // Lucide 아이콘 초기화
     lucide.createIcons();
 
-    // 테마 색상 및 데이터 세팅 (tailwind 표준 색상 명칭으로 변경)
+    // 💡 Tailwind JIT 누락 방지를 위한 명시적 클래스 매핑 객체 💡
     const THEMES = {
-      1: { color: 'emerald', hex: '#10b981', overlay: 'rgba(16, 185, 129, 0.15)' },
-      2: { color: 'purple', hex: '#a855f7', overlay: 'rgba(168, 85, 247, 0.15)' },
-      3: { color: 'rose', hex: '#f43f5e', overlay: 'rgba(244, 63, 94, 0.15)' }
+      1: { 
+        color: 'emerald', hex: '#10b981', overlay: 'rgba(16, 185, 129, 0.15)',
+        bg: 'bg-emerald-500', hoverBg: 'hover:bg-emerald-400', 
+        text: 'text-emerald-400', border: 'border-emerald-400', 
+        borderPanel: 'border-emerald-500/80', borderIcon: 'border-emerald-500/50', 
+        bgIcon: 'bg-emerald-500/20', borderT: 'border-t-emerald-500',
+        badgeBg: 'bg-emerald-500/10', badgeText: 'text-emerald-300'
+      },
+      2: { 
+        color: 'purple', hex: '#a855f7', overlay: 'rgba(168, 85, 247, 0.15)',
+        bg: 'bg-purple-500', hoverBg: 'hover:bg-purple-400', 
+        text: 'text-purple-400', border: 'border-purple-400', 
+        borderPanel: 'border-purple-500/80', borderIcon: 'border-purple-500/50', 
+        bgIcon: 'bg-purple-500/20', borderT: 'border-t-purple-500',
+        badgeBg: 'bg-purple-500/10', badgeText: 'text-purple-300'
+      },
+      3: { 
+        color: 'rose', hex: '#f43f5e', overlay: 'rgba(244, 63, 94, 0.15)',
+        bg: 'bg-rose-500', hoverBg: 'hover:bg-rose-400', 
+        text: 'text-rose-400', border: 'border-rose-400', 
+        borderPanel: 'border-rose-500/80', borderIcon: 'border-rose-500/50', 
+        bgIcon: 'bg-rose-500/20', borderT: 'border-t-rose-500',
+        badgeBg: 'bg-rose-500/10', badgeText: 'text-rose-300'
+      }
     };
 
     // 룰렛 칸별 색상 팔레트
@@ -386,44 +432,49 @@
       '#64748B', '#84CC16'
     ];
 
-    // 앱 상태 관리
+    // 앱 상태 관리 (초기 데이터에 qty: null(무제한) 혹은 수량 추가)
     const state = {
       currentView: 'home',
       activeChapter: null,
       isSpinning: false,
       rotation: 0,
+      lastSliceIndex: null,
+      lastTickTime: 0,
       chapterData: {
         1: {
           title: '첫방문 환영',
+          themeName: '신비한초대',
           items: [
-            { name: '스마트 펜', weight: 10 },
-            { name: '꽝', weight: 40 },
-            { name: '문화상품권 5천원', weight: 10 },
-            { name: '초코파이', weight: 20 },
-            { name: '꽝', weight: 15 },
-            { name: '아메리카노', weight: 5 }
+            { name: '스마트 펜', weight: 10, qty: 5 },
+            { name: '꽝', weight: 40, qty: null },
+            { name: '문화상품권 5천원', weight: 10, qty: 3 },
+            { name: '초코파이', weight: 20, qty: 10 },
+            { name: '꽝', weight: 15, qty: null },
+            { name: '아메리카노', weight: 5, qty: 2 }
           ]
         },
         2: {
           title: '두번째 환영',
+          themeName: '멈춰버린 기계의 노래',
           items: [
-            { name: '기계식 키보드', weight: 2 },
-            { name: '꽝', weight: 50 },
-            { name: '무선 마우스', weight: 8 },
-            { name: '비타500', weight: 20 },
-            { name: '꽝', weight: 15 },
-            { name: '영화 예매권', weight: 5 }
+            { name: '기계식 키보드', weight: 2, qty: 1 },
+            { name: '꽝', weight: 50, qty: null },
+            { name: '무선 마우스', weight: 8, qty: 2 },
+            { name: '비타500', weight: 20, qty: 15 },
+            { name: '꽝', weight: 15, qty: null },
+            { name: '영화 예매권', weight: 5, qty: 5 }
           ]
         },
         3: {
           title: '세번째 환영',
+          themeName: '잊혀진 시간 속으로',
           items: [
-            { name: '연차 1일권', weight: 1 },
-            { name: '꽝', weight: 60 },
-            { name: '오후 반차권', weight: 4 },
-            { name: '간식 세트', weight: 15 },
-            { name: '꽝', weight: 15 },
-            { name: '커피 쿠폰', weight: 5 }
+            { name: '연차 1일권', weight: 1, qty: 1 },
+            { name: '꽝', weight: 60, qty: null },
+            { name: '오후 반차권', weight: 4, qty: 2 },
+            { name: '간식 세트', weight: 15, qty: 10 },
+            { name: '꽝', weight: 15, qty: null },
+            { name: '커피 쿠폰', weight: 5, qty: 5 }
           ]
         }
       }
@@ -444,6 +495,7 @@
       sItemList: document.getElementById('settings-item-list'),
       sItemInput: document.getElementById('settings-new-item'),
       sWeightInput: document.getElementById('settings-new-weight'),
+      sQtyInput: document.getElementById('settings-new-quantity'),
       sItemCount: document.getElementById('s-item-count'),
       sTotalProb: document.getElementById('s-total-prob'),
       
@@ -455,6 +507,7 @@
       pointerInner: document.getElementById('pointer-inner'),
       canvas: document.getElementById('roulette-canvas'),
       spinBtn: document.getElementById('spin-btn'),
+      needleWrapper: document.getElementById('needle-wrapper'),
       
       bgOverlay: document.getElementById('bg-overlay'),
       
@@ -483,17 +536,21 @@
 
         // UI 테마 설정
         const theme = THEMES[id];
-        const titleText = state.chapterData[id].title;
+        const themeName = state.chapterData[id].themeName;
         
         els.sBadge.textContent = `Chapter 0${id}`;
-        els.sTitle.textContent = `${titleText} 설정`;
+        els.sTitle.textContent = `${themeName} 설정`;
         
-        // Tailwind JIT 동적 클래스 세팅 (명도 대비 확실하게 지정된 테마 반영)
-        els.sIcon.className = `w-6 h-6 mr-2 text-${theme.color}-400`;
-        els.sAddBtn.className = `bg-${theme.color}-500 hover:bg-${theme.color}-400 text-[#040814] px-6 py-3 rounded-xl font-black transition-colors shadow-lg flex items-center shrink-0`;
-        els.sCompleteBtn.className = `w-full mt-auto py-4 bg-${theme.color}-500 hover:bg-${theme.color}-400 text-[#040814] text-xl font-black rounded-xl transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 flex items-center justify-center`;
-        els.sItemInput.className = `flex-1 bg-[#040813]/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-${theme.color}-400 focus:bg-white/10 transition-colors`;
-        els.sWeightInput.className = `w-24 bg-[#040813]/50 border border-white/20 rounded-xl px-2 py-3 text-white placeholder-white/40 text-center focus:outline-none focus:border-${theme.color}-400 focus:bg-white/10 transition-colors`;
+        // Tailwind 명시적 클래스를 사용한 완벽한 렌더링
+        els.sIcon.className = `w-6 h-6 mr-2 ${theme.text}`;
+        els.sAddBtn.className = `${theme.bg} ${theme.hoverBg} text-[#040814] px-6 py-3 rounded-xl font-black transition-colors shadow-lg flex items-center justify-center shrink-0`;
+        els.sCompleteBtn.className = `w-full mt-auto py-4 ${theme.bg} ${theme.hoverBg} text-[#040814] text-xl font-black rounded-xl transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 flex items-center justify-center`;
+        
+        // 인풋 테마
+        const inputClass = `bg-[#040813]/50 border border-white/20 rounded-xl py-3 text-white placeholder-white/40 focus:outline-none focus:${theme.border} focus:bg-white/10 transition-colors`;
+        els.sItemInput.className = `flex-1 px-4 min-w-0 ${inputClass}`;
+        els.sQtyInput.className = `w-20 px-2 text-center ${inputClass}`;
+        els.sWeightInput.className = `w-24 pl-3 pr-7 text-right ${inputClass}`;
         
         els.bgOverlay.style.backgroundColor = theme.overlay;
 
@@ -513,22 +570,23 @@
       // 확률 총합 100% 검증
       const totalProb = items.reduce((sum, item) => sum + item.weight, 0);
       if (totalProb !== 100) {
-        showModal('알림', `모든 상품의 확률 총합이 정확히 100%여야 합니다.\n(현재 총합: ${totalProb}%)`, 'alert-circle', 'rose');
+        showModal('알림', `모든 상품의 확률 총합이 정확히 100%여야 합니다.\n(현재 총합: ${totalProb}%)`, 'alert-circle', 3);
         return;
       }
       
       if (items.length < 2) {
-        showModal('알림', '룰렛을 돌리려면 최소 2개의 상품이 필요합니다.', 'alert-circle', 'rose');
+        showModal('알림', '룰렛을 돌리려면 최소 2개의 상품이 필요합니다.', 'alert-circle', 3);
         return;
       }
 
       const theme = THEMES[state.activeChapter];
+      const themeName = state.chapterData[state.activeChapter].themeName;
       
       els.rBadge.textContent = `Chapter 0${state.activeChapter}`;
-      els.rTitle.textContent = state.chapterData[state.activeChapter].title;
+      els.rTitle.textContent = themeName;
       
-      els.pointerInner.className = `absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[36px] border-t-${theme.color}-500 z-20`;
-      els.rIcon.className = `w-6 h-6 mr-2 text-${theme.color}-400`;
+      els.pointerInner.className = `absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[36px] ${theme.borderT} z-20`;
+      els.rIcon.className = `w-6 h-6 mr-2 ${theme.text}`;
       
       renderRouletteItems();
       drawRoulette();
@@ -554,7 +612,7 @@
       els.bgOverlay.style.backgroundColor = 'rgba(4, 8, 20, 0.65)'; // 배경 원복
     }
 
-    // [설정 뷰] - 편집 가능한 아이템 리스트 렌더링 및 실시간 확률 표시
+    // [설정 뷰] - 편집 가능한 아이템 리스트 렌더링 (블록(Box) 스타일)
     function renderSettingsItems() {
       const items = state.chapterData[state.activeChapter].items;
       els.sItemCount.textContent = items.length;
@@ -564,10 +622,10 @@
       const totalProb = items.reduce((sum, item) => sum + item.weight, 0);
       els.sTotalProb.textContent = `총합: ${totalProb}% / 100%`;
       
-      // 총합에 따른 글씨 색상 변경
-      const themeColor = THEMES[state.activeChapter].color;
+      const theme = THEMES[state.activeChapter];
+      
       if (totalProb === 100) {
-        els.sTotalProb.className = `font-bold text-${themeColor}-400`;
+        els.sTotalProb.className = `font-bold ${theme.text}`;
       } else if (totalProb > 100) {
         els.sTotalProb.className = 'font-bold text-rose-400';
       } else {
@@ -576,9 +634,9 @@
 
       if (items.length === 0) {
         els.sItemList.innerHTML = `
-          <div class="flex flex-col items-center justify-center h-full text-white/30 pt-10">
-            <i data-lucide="inbox" class="w-10 h-10 mb-2"></i>
-            <p>등록된 상품이 없습니다.</p>
+          <div class="flex flex-col items-center justify-center w-full text-white/30 py-6">
+            <i data-lucide="inbox" class="w-8 h-8 mb-2"></i>
+            <p class="text-sm">등록된 상품이 없습니다.</p>
           </div>
         `;
         lucide.createIcons();
@@ -587,22 +645,20 @@
 
       items.forEach((item, index) => {
         const li = document.createElement('li');
-        li.className = 'flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors group';
+        li.className = 'flex flex-col bg-white/5 p-3 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors group relative w-[calc(50%-0.5rem)] sm:w-[calc(33.33%-0.75rem)] lg:w-[calc(25%-0.75rem)] shrink-0 min-w-[140px]';
         
-        const colorIndicator = document.createElement('div');
-        colorIndicator.className = 'w-4 h-4 rounded-full mr-4 shadow-sm flex-shrink-0';
-        colorIndicator.style.backgroundColor = ROULETTE_COLORS[index % ROULETTE_COLORS.length];
+        const colorIndicator = `<div class="w-3 h-3 rounded-full shadow-sm flex-shrink-0 mb-1" style="background-color: ${ROULETTE_COLORS[index % ROULETTE_COLORS.length]};"></div>`;
 
         li.innerHTML = `
-          <div class="flex items-center flex-1 overflow-hidden pr-2">
-            ${colorIndicator.outerHTML}
-            <span class="text-white font-medium text-lg truncate">${item.name}</span>
-          </div>
-          <div class="flex items-center gap-4 flex-shrink-0">
-            <span class="px-3 py-1 bg-[#040813]/50 text-white/70 text-sm rounded-lg font-mono w-16 text-center border border-white/10" title="확률">${item.weight}%</span>
-            <button onclick="deleteItem(${index})" class="text-white/20 hover:text-rose-400 transition-colors p-2 bg-white/5 rounded-lg hover:bg-rose-400/10" title="삭제">
-              <i data-lucide="trash-2" class="w-4 h-4"></i>
-            </button>
+          <button onclick="deleteItem(${index})" class="absolute top-2 right-2 text-white/20 hover:text-rose-400 transition-colors bg-black/20 p-1.5 rounded-lg hover:bg-rose-400/20" title="삭제">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+          
+          ${colorIndicator}
+          <div class="text-white font-bold text-sm mb-2 mt-1 truncate pr-6" title="${item.name}">${item.name}</div>
+          
+          <div class="flex items-center justify-between mt-auto">
+            <span class="text-white/50 text-xs font-mono">${item.weight}%</span>
           </div>
         `;
         els.sItemList.appendChild(li);
@@ -610,58 +666,62 @@
       lucide.createIcons();
     }
 
-    // [룰렛 뷰] - 읽기 전용 전시용 아이템 리스트 렌더링
+    // [룰렛 뷰] - 읽기 전용 전시용 아이템 리스트 렌더링 (품절 여부 숨김)
     function renderRouletteItems() {
       const items = state.chapterData[state.activeChapter].items;
       els.rItemList.innerHTML = '';
 
       items.forEach((item, index) => {
         const li = document.createElement('li');
-        li.className = 'flex items-center bg-white/5 p-4 rounded-2xl border border-white/10 shadow-sm';
+        li.className = `flex flex-col p-3 rounded-2xl border transition-colors w-[calc(50%-0.5rem)] lg:w-[calc(33.33%-0.75rem)] shrink-0 min-w-[120px] bg-white/5 border-white/10 shadow-sm`;
         
-        const colorIndicator = document.createElement('div');
-        colorIndicator.className = 'w-4 h-4 rounded-full mr-4 shadow-md flex-shrink-0';
-        colorIndicator.style.backgroundColor = ROULETTE_COLORS[index % ROULETTE_COLORS.length];
+        const colorIndicator = `<div class="w-3 h-3 rounded-full shadow-md flex-shrink-0 mb-2" style="background-color: ${ROULETTE_COLORS[index % ROULETTE_COLORS.length]};"></div>`;
 
         li.innerHTML = `
-          ${colorIndicator.outerHTML}
-          <span class="text-white font-medium text-lg truncate">${item.name}</span>
+          ${colorIndicator}
+          <div class="text-white font-bold text-sm mb-2 truncate" title="${item.name}">
+            ${item.name}
+          </div>
         `;
         els.rItemList.appendChild(li);
       });
     }
 
-    // 아이템 추가 로직 및 확률 총합 초과 방지
+    // 아이템 추가 로직
     function addItem() {
       const name = els.sItemInput.value.trim();
       let weight = parseInt(els.sWeightInput.value, 10);
+      let qtyStr = els.sQtyInput.value.trim();
+      let qty = qtyStr === '' ? null : parseInt(qtyStr, 10); // 공란이면 null(무제한)
       
       if (isNaN(weight) || weight < 1) weight = 10;
+      if (qty !== null && (isNaN(qty) || qty < 0)) qty = 1;
 
       if (!name) {
-        showModal('알림', '상품 이름을 입력해주세요!', 'alert-circle', 'rose');
+        showModal('알림', '상품 이름을 입력해주세요!', 'alert-circle', 3);
         return;
       }
       
       const items = state.chapterData[state.activeChapter].items;
       if (items.length >= 20) {
-        showModal('알림', '상품은 최대 20개까지만 등록 가능합니다.', 'alert-circle', 'rose');
+        showModal('알림', '상품은 최대 20개까지만 등록 가능합니다.', 'alert-circle', 3);
         return;
       }
       
       // 추가 시 100%를 초과하는지 검사
       const currentTotal = items.reduce((sum, item) => sum + item.weight, 0);
       if (currentTotal + weight > 100) {
-        showModal('알림', `확률 총합이 100%를 초과할 수 없습니다.\n(현재: ${currentTotal}%, 추가 시: ${currentTotal + weight}%)`, 'alert-circle', 'rose');
+        showModal('알림', `확률 총합이 100%를 초과할 수 없습니다.\n(현재: ${currentTotal}%, 추가 시: ${currentTotal + weight}%)`, 'alert-circle', 3);
         return;
       }
 
-      items.push({ name, weight });
+      items.push({ name, weight, qty });
+      
       els.sItemInput.value = '';
-      els.sWeightInput.value = '10'; // 비중 초기화
+      els.sQtyInput.value = '';
+      els.sWeightInput.value = '10'; // 초기화
       
       renderSettingsItems();
-      els.sItemList.scrollTop = els.sItemList.scrollHeight;
     }
 
     function handleInputKey(e) {
@@ -674,7 +734,7 @@
       renderSettingsItems();
     }
 
-    // 캔버스에 룰렛 그리기 (크기는 균등, 확률은 안 보임)
+    // 캔버스에 룰렛 그리기 (크기는 무조건 균등 분할, 품절 시각 표시 제거)
     function drawRoulette() {
       const items = state.chapterData[state.activeChapter].items;
       const ctx = els.canvas.getContext('2d');
@@ -686,7 +746,6 @@
 
       ctx.clearRect(0, 0, width, height);
 
-      // 화면에 보여지는 크기는 무조건 1/N 등분
       const arc = (2 * Math.PI) / items.length;
 
       for (let i = 0; i < items.length; i++) {
@@ -730,86 +789,140 @@
       }
     }
 
-    // 룰렛 스핀 로직 (100% 확률 추첨)
+    // 룰렛 스핀 로직 (재고 없는 아이템 완전 배제 로직 유지)
     function spinRoulette() {
       const items = state.chapterData[state.activeChapter].items;
       
       if (state.isSpinning) return;
 
+      // 1. 유효한(품절이 아닌) 아이템들의 총 확률 계산
+      let validTotalWeight = 0;
+      let availableItemsCount = 0;
+      
+      items.forEach(item => {
+        if (item.qty !== 0) {
+          validTotalWeight += item.weight;
+          availableItemsCount++;
+        }
+      });
+
+      // 만약 모두 다 품절이면 경고창 띄우기 (룰렛이 아예 돌지 않음)
+      if (availableItemsCount === 0) {
+        showModal('알림', '준비된 모든 상품이 소진되었습니다!', 'alert-circle', 3);
+        return;
+      }
+
       state.isSpinning = true;
       els.spinBtn.classList.add('opacity-50', 'cursor-not-allowed');
-      
-      els.canvas.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      els.canvas.style.transition = 'transform 7.5s cubic-bezier(0.1, 0.85, 0.15, 1)';
 
-      // 1. 확률(가중치) 기반 당첨 인덱스 추첨 (총합은 무조건 100으로 검증됨)
-      let totalWeight = 100;
-      let randomNum = Math.random() * totalWeight;
+      // 2. 남은 확률 총합 내에서 랜덤 번호 추첨 (품절 아이템 절대 당첨 불가)
+      let randomNum = Math.random() * validTotalWeight;
       
       let winnerIndex = 0;
       let cumulative = 0;
       for (let i = 0; i < items.length; i++) {
-        cumulative += items[i].weight;
-        if (randomNum <= cumulative) {
-          winnerIndex = i;
-          break;
+        // 수량이 0인 아이템은 cumulative에 더하지 않음 (건너뜀)
+        if (items[i].qty !== 0) {
+          cumulative += items[i].weight;
+          if (randomNum <= cumulative) {
+            winnerIndex = i;
+            break;
+          }
         }
       }
       
       const winner = items[winnerIndex];
 
-      // 2. 바늘이 해당 당첨 칸의 내부에 멈추도록 각도 계산 (크기는 균등함)
+      // 3. 바늘이 해당 당첨 칸의 내부에 멈추도록 각도 계산
       const arcDeg = 360 / items.length;
-      const sliceCenter = (winnerIndex * arcDeg) + (arcDeg / 2);
-      
-      // 칸의 정중앙이 아닌 조금씩 랜덤한 위치에 서도록 오프셋 부여 (경계선 침범 방지 80% 구간 내)
-      const randomOffset = (Math.random() - 0.5) * (arcDeg * 0.8);
-      
-      // 270도(12시 방향)에서 목표 중심까지 얼만큼 더 돌아가야 하는지 계산
-      const targetRotation = (270 - sliceCenter + randomOffset + 360) % 360;
+      const stopOffset = 1.0 + Math.random() * 2.0; 
+      const targetPointerDeg = ((winnerIndex + 1) * arcDeg) - stopOffset;
+      const targetRotation = (630 - targetPointerDeg) % 360;
 
-      // 3. 실제 애니메이션 회전수 적용
-      const spins = 5; // 기본 5바퀴
+      // 4. 애니메이션 회전수 적용
+      const spins = 7;
       const currentBase = Math.floor(state.rotation / 360) * 360;
       let newRotation = currentBase + (360 * spins) + targetRotation;
       
-      // 최소 회전량 확보 방어코드
-      if (newRotation <= state.rotation + 360 * 3) {
+      if (newRotation <= state.rotation + 360 * 4) {
           newRotation += 360;
       }
       state.rotation = newRotation;
-      
       els.canvas.style.transform = `rotate(${state.rotation}deg)`;
 
-      // 4. 회전 종료 후 결과 모달 표시
-      setTimeout(() => {
-        const isDud = winner.name === '꽝' || winner.name.includes('다음 기회');
-        
-        if (isDud) {
-          showModal('아쉽습니다...', winner.name, 'frown', 'rose');
-        } else {
-          // 당첨이면 해당 챕터의 테마 색상으로 축하 모달 표시
-          const themeColor = THEMES[state.activeChapter].color;
-          showModal('🎉 축하합니다! 🎉', winner.name, 'gift', themeColor);
-        }
+      // 5. 바늘 튕김 (Tick) 물리 효과
+      state.lastSliceIndex = null;
+      
+      function tickLoop() {
+         if (!state.isSpinning) return;
+         
+         const st = window.getComputedStyle(els.canvas);
+         const tr = st.getPropertyValue("transform");
+         let angle = 0;
+         
+         if (tr !== 'none') {
+             const values = tr.split('(')[1].split(')')[0].split(',');
+             const a = parseFloat(values[0]);
+             const b = parseFloat(values[1]);
+             angle = Math.atan2(b, a) * (180/Math.PI);
+         }
+         if (angle < 0) angle += 360;
 
+         let pointerDeg = (630 - angle) % 360;
+         const currentIndex = Math.floor(pointerDeg / arcDeg);
+
+         if (state.lastSliceIndex !== null && state.lastSliceIndex !== currentIndex) {
+             const now = Date.now();
+             if (now - state.lastTickTime > 50) {
+                 state.lastTickTime = now;
+                 els.needleWrapper.classList.remove('animate-tick');
+                 void els.needleWrapper.offsetWidth;
+                 els.needleWrapper.classList.add('animate-tick');
+             }
+         }
+         state.lastSliceIndex = currentIndex;
+         requestAnimationFrame(tickLoop);
+      }
+      requestAnimationFrame(tickLoop);
+
+      // 6. 회전 종료 후 처리 (수량 감소 및 화면 갱신)
+      setTimeout(() => {
         state.isSpinning = false;
         els.spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
 
-      }, 4050); // CSS transition 4000ms + 여유시간
+        // 당첨 수량 차감 로직 (null이 아닐 때만 차감)
+        if (winner.qty !== null && winner.qty > 0) {
+          winner.qty -= 1;
+        }
+
+        // 결과 모달 표시 전에 UI 업데이트 (보이는 것은 똑같지만 내부 수량 최신화용)
+        renderRouletteItems();
+        drawRoulette();
+
+        const isDud = winner.name === '꽝' || winner.name.includes('다음 기회');
+        
+        if (isDud) {
+          showModal('아쉽습니다...', winner.name, 'frown', 3);
+        } else {
+          showModal('🎉 축하합니다! 🎉', winner.name, 'gift', state.activeChapter);
+        }
+
+      }, 7600);
     }
 
     // 커스텀 모달 제어 함수
-    function showModal(title, message, iconName, overrideColor) {
-      const themeColor = overrideColor || THEMES[state.activeChapter || 1].color;
+    function showModal(title, message, iconName, themeId = null) {
+      const theme = THEMES[themeId || state.activeChapter || 1];
 
       els.modalTitle.textContent = title;
       els.modalMessage.textContent = message;
       
-      els.modalPanel.className = `bg-[#0B1528] border-[3px] border-${themeColor}-500/80 p-12 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.6)] relative z-10 text-center transform scale-90 opacity-0 transition-all duration-300 min-w-[450px] max-w-xl`;
-      els.modalIconCont.className = `mx-auto w-24 h-24 bg-${themeColor}-500/20 rounded-full flex items-center justify-center mb-8 border-2 border-${themeColor}-500/50 shadow-inner`;
-      els.modalIconCont.innerHTML = `<i data-lucide="${iconName}" id="modal-icon" class="w-12 h-12 text-${themeColor}-400"></i>`;
-      els.modalMessage.className = `text-[2.5rem] leading-tight text-${themeColor}-400 font-extrabold mb-10 break-keep drop-shadow-md`;
-      els.modalCloseBtn.className = `w-full py-4 bg-${themeColor}-500 hover:bg-${themeColor}-400 text-[#040814] text-2xl font-black rounded-xl transition-colors shadow-lg active:scale-95`;
+      els.modalPanel.className = `bg-[#0B1528] border-[3px] ${theme.borderPanel} p-12 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.6)] relative z-10 text-center transform scale-90 opacity-0 transition-all duration-300 min-w-[450px] max-w-xl`;
+      els.modalIconCont.className = `mx-auto w-24 h-24 ${theme.bgIcon} rounded-full flex items-center justify-center mb-8 border-2 ${theme.borderIcon} shadow-inner`;
+      els.modalIconCont.innerHTML = `<i data-lucide="${iconName}" id="modal-icon" class="w-12 h-12 ${theme.text}"></i>`;
+      els.modalMessage.className = `text-[2.5rem] leading-tight ${theme.text} font-extrabold mb-10 break-keep drop-shadow-md`;
+      els.modalCloseBtn.className = `w-full py-4 ${theme.bg} ${theme.hoverBg} text-[#040814] text-2xl font-black rounded-xl transition-colors shadow-lg active:scale-95`;
       
       lucide.createIcons();
 
