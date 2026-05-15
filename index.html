@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOROLAND - Break Out Adventure Roulette</title>
   
-  <!-- Google Fonts: Hahmlet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Tailwind 설정 -->
   <script>
     tailwind.config = {
       theme: {
@@ -26,7 +23,6 @@
     }
   </script>
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <style>
@@ -105,14 +101,12 @@
 </head>
 <body class="min-h-screen text-slate-800 font-sans relative overflow-x-hidden">
 
-  <!-- Tailwind JIT 강제 클래스 로드용 -->
   <div class="hidden
     bg-emerald-500 hover:bg-emerald-400 text-emerald-400 border-emerald-500/80 bg-emerald-500/20 border-emerald-500/50 border-t-emerald-500 focus:border-emerald-400 text-emerald-500
     bg-purple-500 hover:bg-purple-400 text-purple-400 border-purple-500/80 bg-purple-500/20 border-purple-500/50 border-t-purple-500 focus:border-purple-400 text-purple-500
     bg-rose-500 hover:bg-rose-400 text-rose-400 border-rose-500/80 bg-rose-500/20 border-rose-500/50 border-t-rose-500 focus:border-rose-400 text-rose-500
   "></div>
 
-  <!-- 배경 레이어 -->
   <div class="fixed inset-0 z-[-10] bg-[url('도로랜드%20배경.png')] bg-cover bg-center bg-no-repeat bg-fixed">
     <div class="absolute inset-0 bg-[#040814]/65 transition-colors duration-700" id="bg-overlay"></div>
   </div>
@@ -127,12 +121,10 @@
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col items-center relative z-20 min-h-screen">
     
-    <!-- 공통 로고 헤더 -->
     <header class="w-full flex justify-center mb-8 relative z-30">
       <img src="도로랜드 로고.png" alt="도로랜드 공식 로고" class="w-full max-w-[200px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]" />
     </header>
 
-    <!-- ==================== HOME VIEW ==================== -->
     <div id="home-view" class="w-full flex flex-col items-center w-full transition-all duration-500">
       <div class="relative inline-block mb-10 z-30 px-8 text-center">
         <i data-lucide="sparkles" class="absolute left-0 -top-4 w-6 h-6 text-teal-400 animate-pulse"></i>
@@ -143,9 +135,7 @@
         <i data-lucide="sparkles" class="absolute right-0 -bottom-4 w-6 h-6 text-blue-400 animate-pulse" style="animation-delay: 1s;"></i>
       </div>
 
-      <!-- Chapter Grid -->
       <main class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-30">
-        <!-- Chapter 1 -->
         <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-3 hover:shadow-emerald-500/30" onclick="handleEnterChapter(1, this)">
           <div class="h-56 w-full relative overflow-hidden border-b border-emerald-100 bg-emerald-50">
             <img src="챕터1로고.png" alt="챕터 1 로고" class="absolute inset-0 w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-500" />
@@ -153,7 +143,7 @@
           </div>
           <div class="p-6 sm:p-8 flex-grow flex flex-col relative bg-white min-h-[240px]">
             <div class="flex items-center mb-3 space-x-2">
-              <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-black tracking-widest uppercase rounded-md border border-emerald-100">Chapter 01</span>
+              <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-black tracking-widest uppercase rounded-md border border-emerald-100">ai 공대체험</span>
               <span class="text-sm font-bold text-emerald-600/70">사파리 구역</span>
             </div>
             <h3 class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight tracking-tight">첫방문 환영</h3>
@@ -167,7 +157,6 @@
           </div>
         </div>
 
-        <!-- Chapter 2 -->
         <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-3 hover:shadow-purple-500/30" onclick="handleEnterChapter(2, this)">
           <div class="h-56 w-full relative overflow-hidden border-b border-purple-100 bg-purple-50">
             <img src="챕터2로고.png" alt="챕터 2 로고" class="absolute inset-0 w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-500" />
@@ -189,7 +178,6 @@
           </div>
         </div>
 
-        <!-- Chapter 3 -->
         <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-3 hover:shadow-rose-500/30" onclick="handleEnterChapter(3, this)">
           <div class="h-56 w-full relative overflow-hidden border-b border-rose-100 bg-rose-50">
             <img src="챕터3로고.png" alt="챕터 3 로고" class="absolute inset-0 w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-500" />
@@ -211,7 +199,6 @@
           </div>
         </div>
 
-        <!-- Chapter 4 (잠김) -->
         <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 3)">
           <div class="flex-grow flex flex-col items-center justify-center relative bg-slate-100 p-8 text-center min-h-[380px]">
             <div class="absolute inset-0 opacity-[0.04]" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 10px, transparent 10px, transparent 20px);"></div>
@@ -226,7 +213,6 @@
           </div>
         </div>
 
-        <!-- Chapter 5 (잠김) -->
         <div class="group flex flex-col bg-transparent rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 opacity-80 cursor-pointer hover:opacity-100" onclick="showModal('알림', '아직 준비 중인 구역입니다.', 'lock', 3)">
           <div class="flex-grow flex flex-col items-center justify-center relative bg-slate-100 p-8 text-center min-h-[380px]">
             <div class="absolute inset-0 opacity-[0.04]" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 10px, transparent 10px, transparent 20px);"></div>
@@ -243,22 +229,18 @@
       </main>
     </div>
 
-    <!-- ==================== SETTINGS VIEW ==================== -->
     <div id="settings-view" class="hidden w-full max-w-5xl flex-col fade-enter mx-auto">
-      <!-- 헤더 -->
       <div class="flex items-center justify-between mb-6 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 shadow-lg">
         <button onclick="goToHome()" class="flex items-center text-white/70 hover:text-white transition-colors">
           <i data-lucide="chevron-left" class="w-5 h-5 mr-1"></i>
           <span class="font-bold">목록으로</span>
         </button>
         <div class="text-center">
-          <span id="s-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">Chapter 01</span>
-          <h2 id="s-title" class="text-2xl font-black text-white tracking-wide">신비한초대 설정</h2>
+          <span id="s-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">ai 공대체험</span>
+          <h2 id="s-title" class="text-2xl font-black text-white tracking-wide">룰렛 설정</h2>
         </div>
-        <div class="w-20"></div> <!-- 여백 맞춤용 -->
-      </div>
+        <div class="w-20"></div> </div>
 
-      <!-- 메인 설정 패널 -->
       <div class="bg-[#0B1528]/90 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl flex flex-col">
         <div class="text-center mb-8">
           <h3 class="text-2xl font-bold text-white flex items-center justify-center">
@@ -268,29 +250,23 @@
           <p class="text-white/50 mt-2 text-sm">상품별 당첨 확률(%)과 수량(재고)을 입력하세요. <strong class="text-teal-400">고객에게는 수량과 품절 상태가 보이지 않습니다.</strong></p>
         </div>
 
-        <!-- 아이템 추가 폼 -->
         <div class="flex flex-col sm:flex-row gap-3 mb-8 bg-white/5 p-4 rounded-2xl border border-white/10 items-stretch">
-          <!-- 상품명 -->
           <input type="text" id="settings-new-item" onkeypress="handleInputKey(event)" class="flex-1 bg-[#040813]/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none transition-colors min-w-0" placeholder="상품명 (예: 스마트 펜)">
           
           <div class="flex gap-3 w-full sm:w-auto mt-3 sm:mt-0 items-center justify-between sm:justify-start">
-            <!-- 수량 -->
             <div class="relative flex-shrink-0">
               <input type="number" id="settings-new-quantity" onkeypress="handleInputKey(event)" class="w-24 bg-[#040813]/50 border border-white/20 rounded-xl px-3 py-3 text-white placeholder-white/40 text-center focus:outline-none transition-colors" placeholder="수량(무제한은 빈칸)" min="1" title="준비된 수량 (공란 시 무제한)">
             </div>
-            <!-- 확률 -->
             <div class="relative flex-shrink-0">
               <input type="number" id="settings-new-weight" onkeypress="handleInputKey(event)" class="w-24 bg-[#040813]/50 border border-white/20 rounded-xl pl-3 pr-7 py-3 text-white placeholder-white/40 text-right focus:outline-none transition-colors" placeholder="확률" value="10" min="1" max="100" title="당첨 확률(%)">
               <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/40 pointer-events-none select-none font-bold">%</span>
             </div>
-            <!-- 추가 버튼 -->
             <button onclick="addItem()" id="s-add-btn" class="text-[#040814] px-6 py-3 rounded-xl font-black transition-colors shadow-lg flex items-center justify-center shrink-0">
               <i data-lucide="plus" class="w-5 h-5 mr-1"></i> 추가
             </button>
           </div>
         </div>
 
-        <!-- 아이템 리스트 헤더 -->
         <div class="flex justify-between items-center mb-4 px-2 text-sm font-bold border-b border-white/10 pb-2">
           <span class="text-white/50">상품 목록 (<span id="s-item-count">0</span>)</span>
           <div class="flex items-center space-x-6 pr-2">
@@ -298,14 +274,11 @@
           </div>
         </div>
 
-        <!-- 아이템 리스트 (플렉스 랩 뷰) -->
         <div class="flex-1 w-full bg-black/20 rounded-xl p-4 mb-8">
            <ul id="settings-item-list" class="flex flex-wrap gap-3">
-             <!-- JS 렌더링 -->
-           </ul>
+             </ul>
         </div>
 
-        <!-- 완료 버튼 -->
         <button onclick="goToRoulette()" id="s-complete-btn" class="w-full py-4 text-[#040814] text-xl font-black rounded-xl transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)] transform hover:-translate-y-1 flex items-center justify-center">
           <i data-lucide="play-circle" class="w-6 h-6 mr-2"></i>
           룰렛 생성 완료 및 시작하기
@@ -313,17 +286,15 @@
       </div>
     </div>
 
-    <!-- ==================== ROULETTE VIEW ==================== -->
     <div id="roulette-view" class="hidden w-full max-w-7xl flex-col fade-enter mx-auto">
-      <!-- 헤더 -->
       <div class="flex items-center justify-between mb-8 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10 shadow-lg">
         <button onclick="goToHome()" class="flex items-center text-white/70 hover:text-white transition-colors">
           <i data-lucide="home" class="w-5 h-5 mr-1"></i>
           <span class="font-bold">처음으로</span>
         </button>
         <div class="text-center">
-          <span id="r-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">Chapter 01</span>
-          <h2 id="r-title" class="text-2xl font-black text-white tracking-wide">신비한초대</h2>
+          <span id="r-chap-badge" class="px-3 py-1 bg-white/10 text-white text-[11px] font-black tracking-widest uppercase rounded-full border border-white/20 mb-1 inline-block">ai 공대체험</span>
+          <h2 id="r-title" class="text-2xl font-black text-white tracking-wide">룰렛</h2>
         </div>
         <button onclick="goToSettings()" class="flex items-center text-white/70 hover:text-white transition-colors border border-white/20 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10">
           <i data-lucide="settings" class="w-4 h-4 mr-1.5"></i>
@@ -333,27 +304,22 @@
 
       <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center w-full">
         
-        <!-- 룰렛 영역 -->
         <div class="relative w-full max-w-[500px] lg:max-w-[650px] aspect-square flex-shrink-0 drop-shadow-2xl">
-          <!-- 포인터 (바늘) - 틱(Tick) 애니메이션이 적용될 래퍼 -->
           <div id="needle-wrapper" class="absolute top-[-16px] left-1/2 -translate-x-1/2 z-20 drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]">
             <div class="w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-t-[48px] border-t-white relative z-10"></div>
             <div id="pointer-inner" class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[36px] z-20"></div>
           </div>
           
-          <!-- 룰렛 테두리 및 캔버스 -->
           <div class="absolute inset-0 rounded-full border-[14px] border-white/20 shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-sm overflow-hidden bg-slate-900">
             <canvas id="roulette-canvas" width="800" height="800" class="w-full h-full transform"></canvas>
           </div>
           
-          <!-- 중앙 스핀 버튼 -->
           <button id="spin-btn" onclick="spinRoulette()" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-white rounded-full shadow-[0_4px_25px_rgba(0,0,0,0.4)] font-black text-2xl text-slate-800 z-10 hover:scale-105 active:scale-95 transition-transform flex flex-col items-center justify-center border-8 border-slate-100 cursor-pointer tracking-wider">
             <span class="leading-none mb-1">SPIN</span>
             <i data-lucide="dribbble" class="w-6 h-6 text-slate-400"></i>
           </button>
         </div>
 
-        <!-- 상품 목록 영역 -->
         <div class="w-full flex-1 bg-[#0B1528]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl flex flex-col self-stretch">
           <div class="flex items-center justify-center mb-6 border-b border-white/10 pb-5">
             <h3 class="text-white text-xl font-bold flex items-center tracking-wide">
@@ -362,11 +328,9 @@
             </h3>
           </div>
           
-          <!-- 읽기 전용 아이템 리스트 (품절 표시 완벽 숨김) -->
           <div class="flex-1 w-full bg-black/20 rounded-xl p-5 mb-4">
             <ul id="roulette-item-list" class="flex flex-wrap gap-4 content-start">
-              <!-- JS 렌더링 -->
-            </ul>
+              </ul>
           </div>
           
           <div class="pt-4 border-t border-white/10 text-center text-white/40 text-xs flex flex-col items-center justify-center space-y-1">
@@ -378,7 +342,6 @@
     </div>
   </div>
 
-  <!-- 결과 모달 창 -->
   <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
     <div id="modal-panel" class="bg-[#0B1528] border-[3px] p-12 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.6)] relative z-10 text-center transform scale-90 opacity-0 transition-all duration-300 min-w-[450px] max-w-xl">
@@ -442,8 +405,9 @@
       lastTickTime: 0,
       chapterData: {
         1: {
+          badge: 'ai 공대체험',
           title: '첫방문 환영',
-          themeName: '신비한초대',
+          themeName: '룰렛',
           items: [
             { name: '스마트 펜', weight: 10, qty: 5 },
             { name: '꽝', weight: 40, qty: null },
@@ -454,6 +418,7 @@
           ]
         },
         2: {
+          badge: 'Chapter 02',
           title: '두번째 환영',
           themeName: '멈춰버린 기계의 노래',
           items: [
@@ -466,6 +431,7 @@
           ]
         },
         3: {
+          badge: 'Chapter 03',
           title: '세번째 환영',
           themeName: '잊혀진 시간 속으로',
           items: [
@@ -537,8 +503,9 @@
         // UI 테마 설정
         const theme = THEMES[id];
         const themeName = state.chapterData[id].themeName;
+        const badgeText = state.chapterData[id].badge;
         
-        els.sBadge.textContent = `Chapter 0${id}`;
+        els.sBadge.textContent = badgeText;
         els.sTitle.textContent = `${themeName} 설정`;
         
         // Tailwind 명시적 클래스를 사용한 완벽한 렌더링
@@ -581,8 +548,9 @@
 
       const theme = THEMES[state.activeChapter];
       const themeName = state.chapterData[state.activeChapter].themeName;
+      const badgeText = state.chapterData[state.activeChapter].badge;
       
-      els.rBadge.textContent = `Chapter 0${state.activeChapter}`;
+      els.rBadge.textContent = badgeText;
       els.rTitle.textContent = themeName;
       
       els.pointerInner.className = `absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[36px] ${theme.borderT} z-20`;
